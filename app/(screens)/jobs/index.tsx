@@ -1,22 +1,20 @@
-import { Navbar } from "@/components";
-import { images } from "@/constants";
-import { JobActiveProp } from "@/type";
 import { Stack } from "expo-router";
-import { createContext, useState } from "react";
-import { SafeAreaView, Text, Image, ScrollView, } from "react-native";
+import { SafeAreaView, Text, Image, View, } from "react-native";
 
+import { 
+  ContextProvider,
+  Navbar,
+  Search
+} from "@/components";
+import { images } from "@/constants";
+import JobLists from "@/components/JobLists";
 
-export const ActiveState = createContext<JobActiveProp>({
-  isActive: 'Discover',
-  setIsActive: ()=>{}
-});
 
 const index = () => {
-  const [isActive, setIsActive] = useState('Discover');
 
   return (
-    <ActiveState.Provider value={{isActive, setIsActive}}>
-      <SafeAreaView>
+    <ContextProvider>
+      <SafeAreaView className="flex-grow flex-shrink basis-0">
         <Stack.Screen
           options={{
               headerTitle: '',
@@ -29,12 +27,13 @@ const index = () => {
           }}
         />
 
-        <ScrollView className="bg-primary px-4">
-          <Navbar />
-        </ScrollView>
+        <View className="bg-primary px-4 h-full">
+          <Navbar/>
+          <Search />
+          <JobLists />
+        </View>
       </SafeAreaView>
-
-    </ActiveState.Provider>
+    </ContextProvider>
   );
 }
 

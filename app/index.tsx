@@ -6,7 +6,7 @@ import { images } from "@/constants";
 const Home = () => {
   const router = useRouter();
   return (
-    <SafeAreaView className="flex-grow flex-shrink basis-0 h-full">
+    <SafeAreaView className="flex-grow flex-shrink basis-0">
       <Stack.Screen 
         options={{
           headerShown: false
@@ -24,7 +24,7 @@ const Home = () => {
           </View>
 
         <View className="px-8">
-          <Text className='text-white text-5xl text-center leading-[px] font-os-regular mb-10'>
+          <Text className='text-white text-5xl text-center leading-[65px] font-os-regular mb-10'>
             Your search for the next dream job is over 
           </Text>
 
