@@ -39,6 +39,7 @@ export const mergeItem = async (key: string, value: any) => {
 export const clear = async () => {
   try {
     await AsyncStorage.clear();
+    console.log('keys cleared');
   } catch (error) {
     console.error('Error clearing AsyncStorage:', error);
   }
@@ -46,7 +47,7 @@ export const clear = async () => {
 
 export const getAllKeys = async () => {
   try {
-    return await AsyncStorage.getAllKeys();
+    console.log( await AsyncStorage.getAllKeys());
   } catch (error) {
     console.error('Error getting all keys:', error);
     return [];

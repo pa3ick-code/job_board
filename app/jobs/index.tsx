@@ -13,7 +13,6 @@ import JobLists from "@/components/JobLists";
 const index = () => {
 
   return (
-    <ContextProvider>
       <SafeAreaView className="flex-grow flex-shrink basis-0">
         <Stack.Screen
           options={{
@@ -33,7 +32,6 @@ const index = () => {
           <JobLists />
         </View>
       </SafeAreaView>
-    </ContextProvider>
   );
 }
 

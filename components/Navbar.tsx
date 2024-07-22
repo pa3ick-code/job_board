@@ -1,11 +1,11 @@
+import useStateStore from "@/app/Store";
 import { menuList } from "@/constants";
-import { ActiveStatus } from "./ContextPovider";
 import { View, Text, FlatList, Touchable, TouchableOpacity } from "react-native";
-import { useContext } from "react";
 
 export default function Navbar() {
-    const {isActive, setIsActive}= useContext(ActiveStatus);
-
+    const isActive = useStateStore( state => state.isActive)
+    const setIsActive = useStateStore( state => state.updateIsActive)
+    
   return (
     <View className="mt-3">
         <Text className="text-white text-3xl font-os-medium leading-loose mb-2">Find Jobs</Text>
@@ -15,18 +15,20 @@ export default function Navbar() {
                 data={menuList}
                 renderItem={({item}) => (
                     <TouchableOpacity 
+                        key={item.id}
                         activeOpacity={1}
-                        onPress={()=>{ setIsActive(item) }}
+                        onPress={()=>{ setIsActive(item.title)}}
                         className={`bg-white h-8 w-20 rounded-3xl items-center justify-center
-                            ${isActive === item? "bg-secondary":"bg-white"}`}
+                            ${isActive === item.title? "bg-secondary":"bg-white"}`}
                     >
-                        <Text className={`${isActive === item? "text-white":""}`}>
-                            {item}
+                        <Text className={`${isActive === item.title? "text-white":""}`}>
+                            {item.title}
                         </Text>
                     </TouchableOpacity>
                 )}
                 horizontal
-                keyExtractor={item => item}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle ={{columnGap: 10, marginTop: 10}}
             />
         </View>

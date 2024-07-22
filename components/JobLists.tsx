@@ -1,5 +1,5 @@
 import { ActivityIndicator, FlatList, Text, View, TouchableOpacity, ScrollView } from "react-native";
-import useFetch from "@/hooks/useFetch";
+import { useFetch }  from "@/hooks/useFetch";
 import { MaterialIcons } from '@expo/vector-icons';
 
 import JobCards from "./JobCards";
@@ -18,7 +18,6 @@ export default function JobLists() {
 
     const onPressPrev = ()=>{ setIndex(next => next  - 1)}
 
-    console.log(index);
   return (
         <ScrollView showsVerticalScrollIndicator={false}>
             {isLoading? (
@@ -42,17 +41,18 @@ export default function JobLists() {
                     data={data}
                     renderItem={({item}) => (
                         <JobCards 
-                            role={item.title}
-                            company={item.company}
-                            image={item.image}
-                            description={item.description}
-                            location={item.location}
-                            datePosted={item.datePosted}
-                            type={item.type}
-                            salary={item.salaryRange}
+                            role={item.job_title}
+                            company={item.employer_name}
+                            image={item.employer_logo}
+                            description={item.job_description}
+                            location={`${item.job_city}, ${item.job_country}`}
+                            datePosted={item.job_posted_at_timestamp}
+                            type={item.job_employment_type}
+                            salary={item.job_max_salary} 
+                            job_id={item.job_id}                    
                         />
                     )}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.job_id}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{rowGap: 20, marginTop: 30}}
                     showsVerticalScrollIndicator={false}
@@ -72,7 +72,6 @@ export default function JobLists() {
                 </View>
             </View>)}
 
-            
         </ScrollView>
   );
 }

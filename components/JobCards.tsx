@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import DetailSlot from "./DetailSlot";
 import { JobCardProp } from "@/type";
 
 export default function JobCards({
+    job_id,
     role, 
     company, 
     image, 
@@ -14,10 +15,11 @@ export default function JobCards({
     location,
     datePosted,
     type,
-    salary
+    salary,
+    // handlePress
 }: JobCardProp) {
-    // const colors  = ['bg-secondary', 'bg-yellow-900', 'bg-blue-900', 'bg-green-900' ];
-    // const bg = colors[Math.floor(Math.random() * colors.length)];
+    const router = useRouter()
+
     let newdesc = "";
     for (let i = 0; i < description.length; i++)
         if (!(description[i] == "\n" || description[i] == "\r"))
@@ -25,9 +27,7 @@ export default function JobCards({
 
   return (
     <View className="w-full h-fit relative rounded-3xl">
-        <View 
-            className={`bg-secondary w-full h-44 rounded-t-3xl `}
-        >
+        <View className={`bg-secondary w-full h-44 rounded-t-3xl `}>
 
             <View className="flex-row  px-3 py-2 items-start justify-between">
                 <View className=" flex-row items-center gap-4">
@@ -45,7 +45,10 @@ export default function JobCards({
                         </Text>
                     </View>
                 </View>
-                <TouchableOpacity className="bg-zinc-800 px-2 py-2 rounded-xl border-[1px] border-slate-500 flex-row items-center mr-3 shadow-xl">
+                <TouchableOpacity 
+                    className="bg-zinc-800 px-2 py-2 rounded-xl border-[1px] border-slate-500 flex-row items-center mr-3 shadow-xl"
+                    onPress={()=>{router.push(`/jobs/${job_id}`)}}
+                >
                     <Text className="text-slate-400 mr-1">View</Text>
                     <Feather name="external-link" size={14} color="#94a3b8" />
                 </TouchableOpacity>
@@ -68,7 +71,7 @@ export default function JobCards({
                     <Text className="text-xs font-os-semibold ">Posted {datePosted || '1 week ago'}</Text>
                 </View>
 
-                <Text className="font-os-bold text-base">{salary || '$400/mo'}</Text>
+                <Text className="font-os-bold text-base">{salary || '$' + Math.floor(Math.random()* (1000 - 400 + 1)) + '/mo'}</Text>
             </View>
         </View>
     </View>
